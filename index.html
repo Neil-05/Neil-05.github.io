@@ -162,77 +162,91 @@ const clearBtn = document.getElementById("clear");
 
 let allRepos = [];
 
+/* ---------- UI HELPERS ---------- */
+function showSkeleton(count = 6) {
+  container.innerHTML = "";
+  for (let i = 0; i < count; i++) {
+    const div = document.createElement("div");
+    div.className = "repo";
+    div.innerHTML = `
+      <p style="height:18px;width:70%;background:#e5e7eb;border-radius:6px"></p>
+      <p style="height:14px;width:100%;background:#e5e7eb;border-radius:6px"></p>
+      <p style="height:14px;width:90%;background:#e5e7eb;border-radius:6px"></p>
+    `;
+    container.appendChild(div);
+  }
+}
+
+/* ---------- RENDER ---------- */
 function renderRepos(repos) {
-    container.innerHTML = "";
+  container.innerHTML = "";
 
-    if (!repos.length) {
-        statusEl.textContent = "No repositories found.";
-        return;
-    }
+  if (!repos.length) {
+    statusEl.textContent = "No repositories found.";
+    return;
+  }
 
-    statusEl.textContent = "";
+  statusEl.textContent = "";
 
-    repos.forEach(repo => {
-        const div = document.createElement("div");
-        div.className = "repo";
+  repos.forEach(repo => {
+    const div = document.createElement("div");
+    div.className = "repo";
 
-        const topics = (repo.topics || [])
-            .slice(0, 3)
-            .map(t => `#${t}`)
-            .join(" ");
+    div.innerHTML = `
+      <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+      <p>${repo.description || "No description provided."}</p>
+      <div class="stats">
+        <span>★ ${repo.stargazers_count}</span>
+        <span>⑂ ${repo.forks_count}</span>
+        <span>${new Date(repo.updated_at).toLocaleDateString()}</span>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
 
-        div.innerHTML = `
-            <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
-            <p>${repo.description || "No description provided."}</p>
-            ${topics ? `<p>${topics}</p>` : ""}
-            <div class="stats">
-                <span>★ ${repo.stargazers_count}</span>
-                <span>⑂ ${repo.forks_count}</span>
-                <span>Updated ${new Date(repo.updated_at).toLocaleDateString()}</span>
-            </div>
-        `;
+/* ---------- SEARCH ---------- */
+function applyFilter() {
+  const q = searchInput.value.trim().toLowerCase();
+  renderRepos(
+    q
+      ? allRepos.filter(r =>
+          r.name.toLowerCase().includes(q) ||
+          (r.description && r.description.toLowerCase().includes(q))
+        )
+      : allRepos
+  );
+}
 
-        container.appendChild(div);
+/* ---------- CACHE ---------- */
+const cached = sessionStorage.getItem("repos");
+if (cached) {
+  allRepos = JSON.parse(cached);
+  renderRepos(allRepos);
+} else {
+  statusEl.textContent = "Loading repositories...";
+  showSkeleton();
+
+  fetch(`https://api.github.com/users/${username}/repos?per_page=50&sort=updated`)
+    .then(res => res.json())
+    .then(data => {
+      allRepos = data
+        .filter(r => !r.fork)
+        .slice(0, 20); // 🚀 LIMIT TO 20 (HUGE SPEED BOOST)
+
+      sessionStorage.setItem("repos", JSON.stringify(allRepos));
+      renderRepos(allRepos);
+    })
+    .catch(() => {
+      statusEl.textContent = "Failed to load repositories.";
     });
 }
 
-function applyFilter() {
-    const q = searchInput.value.trim().toLowerCase();
-    if (!q) {
-        renderRepos(allRepos);
-        return;
-    }
-
-    const filtered = allRepos.filter(r =>
-        r.name.toLowerCase().includes(q) ||
-        (r.description && r.description.toLowerCase().includes(q))
-    );
-
-    renderRepos(filtered);
-}
-
-statusEl.textContent = "Loading repositories...";
-
-fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`, {
-    headers: {
-        "Accept": "application/vnd.github+json"
-    }
-})
-.then(res => res.json())
-.then(data => {
-    allRepos = data
-        .filter(r => !r.fork)
-        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-    renderRepos(allRepos);
-})
-.catch(() => {
-    statusEl.textContent = "Failed to load repositories.";
-});
-
+/* ---------- EVENTS ---------- */
 searchInput.addEventListener("input", applyFilter);
 clearBtn.addEventListener("click", () => {
-    searchInput.value = "";
-    applyFilter();
+  searchInput.value = "";
+  applyFilter();
 });
 </script>
 
