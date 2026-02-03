@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Neil | GitHub Repositories</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg, #0f2027, #000);
+      color: #00ffe7;
+      min-height: 100vh;
+      padding: 60px 10%;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+      font-size: 3rem;
+      text-shadow: 0 0 20px #00ffe7;
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .repo {
+      padding: 25px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 231, 0.35);
+      box-shadow: 0 0 25px rgba(0, 255, 231, 0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .repo:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 0 40px rgba(0, 255, 231, 0.35);
+    }
+
+    .repo a {
+      text-decoration: none;
+      color: #00ffe7;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .repo p {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 70px;
+      opacity: 0.7;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🚀 Neil’s GitHub Repositories</h1>
+
+  <div class="repo-grid">
+
+    <!-- ADD / REMOVE REPOS HERE -->
+
+    <div class="repo">
+      <a href="https://github.com/Neil-05/.Net_Training" target="_blank">
+        🌐 Neil-05.github.io
+      </a>
+      <p>Personal GitHub Pages & portfolio</p>
+    </div>
+
+    <div class="repo">
+      <a href="https://github.com/Neil-05/M1_Questions_Practice" target="_blank">
+        🌐 Neil-05.github.io
+      </a>
+      <p>Personal GitHub Pages & portfolio</p>
+    </div>
+
+    <div class="repo">
+      <a href="https://github.com/Neil-05/Top_Brains_C-" target="_blank">
+        🌐 Neil-05.github.io
+      </a>
+      <p>Personal GitHub Pages & portfolio</p>
+    </div>
+
+    <div class="repo">
+      <a href="https://github.com/Neil-05/SQL_Training" target="_blank">
+        🌐 Neil-05.github.io
+      </a>
+      <p>Personal GitHub Pages & portfolio</p>
+    </div>
+
+    
+
+    <div class="repo">
+      <a href="https://github.com/Neil-05" target="_blank">
+        📦 All Repositories
+      </a>
+      <p>Browse everything I’m building & pushing</p>
+    </div>
+
+    <!-- COPY THIS BLOCK FOR EACH NEW REPO -->
+    <!--
+    <div class="repo">
+      <a href="REPO_LINK" target="_blank">REPO_NAME</a>
+      <p>Short description</p>
+    </div>
+    -->
+
+  </div>
+
+  <footer>
+    © 2026 Neil • Built with curiosity & late-night commits 🌙
+  </footer>
+
+</body>
+</html>
