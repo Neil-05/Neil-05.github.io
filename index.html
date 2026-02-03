@@ -191,7 +191,7 @@ const applyFilter = () => {
 
 statusEl.textContent = "Loading repositories...";
 
-fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`)
+fetch(`https://api.github.com/users/${Neil-05}/repos?sort=updated&per_page=100`)
     .then(res => res.json())
     .then(data => {
         allRepos = data
