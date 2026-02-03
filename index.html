@@ -1,134 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Neil | GitHub Repositories</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'JetBrains Mono', monospace;
-      background: linear-gradient(135deg, #0f2027, #000);
-      color: #00ffe7;
-      min-height: 100vh;
-      padding: 60px 10%;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 50px;
-      font-size: 3rem;
-      text-shadow: 0 0 20px #00ffe7;
-    }
-
-    .repo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;
-    }
-
-    .repo {
-      padding: 25px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(0, 255, 231, 0.35);
-      box-shadow: 0 0 25px rgba(0, 255, 231, 0.15);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .repo:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 0 40px rgba(0, 255, 231, 0.35);
-    }
-
-    .repo a {
-      text-decoration: none;
-      color: #00ffe7;
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-
-    .repo p {
-      margin-top: 10px;
-      font-size: 0.9rem;
-      opacity: 0.85;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 70px;
-      opacity: 0.7;
-      font-size: 0.85rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Neil — GitHub Repositories</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f5f7fb;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --accent: #2563eb;
+            --border: #e2e8f0;
+            --shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 20px 60px;
+            background: var(--bg);
+            color: var(--text);
+        }
+        header {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        h1 { font-size: 32px; margin: 0; }
+        .subtitle { color: var(--muted); margin: 0; }
+        .meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 8px;
+        }
+        .pill {
+            background: #e0e7ff;
+            color: #1e3a8a;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .search {
+            width: 100%;
+            max-width: 520px;
+            margin: 18px auto 0;
+            display: flex;
+            gap: 10px;
+        }
+        .search input {
+            flex: 1;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 14px;
+            background: #fff;
+            outline: none;
+        }
+        .search button {
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        #repos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+        }
+        .repo {
+            background: var(--card);
+            padding: 18px;
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 160px;
+        }
+        .repo a {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .repo p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .stats {
+            display: flex;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: auto;
+        }
+        .status {
+            text-align: center;
+            color: var(--muted);
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
 
-  <h1>🚀 Neil’s GitHub Repositories</h1>
-
-  <div class="repo-grid">
-
-    <!-- ADD / REMOVE REPOS HERE -->
-
-    <div class="repo">
-      <a href="https://github.com/Neil-05/.Net_Training" target="_blank">
-        🌐 Neil-05.github.io
-      </a>
-      <p>Personal GitHub Pages & portfolio</p>
+<header>
+    <h1>🚀 Neil’s GitHub Repositories</h1>
+    <p class="subtitle">All public repositories — auto-synced from GitHub.</p>
+    <div class="meta">
+        <span class="pill">@Neil-05</span>
+        <span class="pill">ML • DS • CS</span>
+        <span class="pill">Open Source</span>
     </div>
 
-    <div class="repo">
-      <a href="https://github.com/Neil-05/M1_Questions_Practice" target="_blank">
-        🌐 Neil-05.github.io
-      </a>
-      <p>Personal GitHub Pages & portfolio</p>
+    <div class="search">
+        <input id="search" type="text" placeholder="Search repositories..." />
+        <button id="clear" type="button">Clear</button>
     </div>
+</header>
 
-    <div class="repo">
-      <a href="https://github.com/Neil-05/Top_Brains_C-" target="_blank">
-        🌐 Neil-05.github.io
-      </a>
-      <p>Personal GitHub Pages & portfolio</p>
-    </div>
+<div id="repos"></div>
+<p id="status" class="status"></p>
 
-    <div class="repo">
-      <a href="https://github.com/Neil-05/SQL_Training" target="_blank">
-        🌐 Neil-05.github.io
-      </a>
-      <p>Personal GitHub Pages & portfolio</p>
-    </div>
+<script>
+const username = "Neil-05";
+const container = document.getElementById("repos");
+const statusEl = document.getElementById("status");
+const searchInput = document.getElementById("search");
+const clearBtn = document.getElementById("clear");
 
-    
+let allRepos = [];
 
-    <div class="repo">
-      <a href="https://github.com/Neil-05" target="_blank">
-        📦 All Repositories
-      </a>
-      <p>Browse everything I’m building & pushing</p>
-    </div>
+const renderRepos = (repos) => {
+    container.innerHTML = "";
 
-    <!-- COPY THIS BLOCK FOR EACH NEW REPO -->
-    <!--
-    <div class="repo">
-      <a href="REPO_LINK" target="_blank">REPO_NAME</a>
-      <p>Short description</p>
-    </div>
-    -->
+    if (!repos.length) {
+        statusEl.textContent = "No repositories found.";
+        return;
+    }
 
-  </div>
+    statusEl.textContent = "";
 
-  <footer>
-    © 2026 Neil • Built with curiosity & late-night commits 🌙
-  </footer>
+    repos.forEach(repo => {
+        const div = document.createElement("div");
+        div.className = "repo";
+
+        const topics = (repo.topics || []).slice(0, 3)
+            .map(t => `#${t}`).join(" ");
+
+        div.innerHTML = `
+            <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
+            <p>${repo.description ?? "No description provided."}</p>
+            ${topics ? `<p>${topics}</p>` : ""}
+            <div class="stats">
+                <span>★ ${repo.stargazers_count}</span>
+                <span>⑂ ${repo.forks_count}</span>
+                <span>Updated ${new Date(repo.updated_at).toLocaleDateString()}</span>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+};
+
+const applyFilter = () => {
+    const q = searchInput.value.trim().toLowerCase();
+    renderRepos(
+        q
+            ? allRepos.filter(r =>
+                r.name.toLowerCase().includes(q) ||
+                (r.description && r.description.toLowerCase().includes(q))
+              )
+            : allRepos
+    );
+};
+
+statusEl.textContent = "Loading repositories...";
+
+fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`)
+    .then(res => res.json())
+    .then(data => {
+        allRepos = data
+            .filter(r => !r.fork)
+            .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+        renderRepos(allRepos);
+    })
+    .catch(() => {
+        statusEl.textContent = "Failed to load repositories.";
+    });
+
+searchInput.addEventListener("input", applyFilter);
+clearBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    applyFilter();
+});
+</script>
 
 </body>
 </html>
